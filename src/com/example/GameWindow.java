@@ -1,5 +1,7 @@
 package com.example;
 
+import sun.awt.image.OffScreenImage;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,10 +19,11 @@ public class GameWindow extends JFrame implements ActionListener{
     private JTextField score = new JTextField(10);
     private Snake snake;
     private boolean p1Run=false;
-    private int DELAY=100;
+    public static int DELAY=100;
+
     public GameWindow() {
         initUI();
-        snake=new Snake(getWidth()-4*Snake.CELL_SIZE,getHeight()-4*Snake.CELL_SIZE);
+        snake=new Snake(getWidth()-2*Snake.CELL_SIZE,getHeight()-4*Snake.CELL_SIZE);
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -29,15 +32,55 @@ public class GameWindow extends JFrame implements ActionListener{
                 switch (e.getKeyCode()){
                     case KeyEvent.VK_UP:
                         snake.changeDir(Snake.DIR_UP);
+                        if(snake.dir==Snake.DIR_UP){
+                            DELAY=30;
+                        }
                         break;
                     case KeyEvent.VK_DOWN:
                         snake.changeDir(Snake.DIR_DOWN);
+                        if(snake.dir==Snake.DIR_DOWN){
+                            DELAY=30;
+                        }
                         break;
                     case KeyEvent.VK_LEFT:
                         snake.changeDir(Snake.DIR_LEFT);
+                        if(snake.dir==Snake.DIR_LEFT){
+                            DELAY=30;
+                        }
                         break;
                     case KeyEvent.VK_RIGHT:
                         snake.changeDir(Snake.DIR_RIGTH);
+                        if(snake.dir==Snake.DIR_RIGTH){
+                            DELAY=30;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e){
+                switch (e.getKeyCode()){
+                    case KeyEvent.VK_UP:
+                        if(snake.dir==Snake.DIR_UP){
+                            DELAY=100;
+                        }
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        if(snake.dir==Snake.DIR_DOWN){
+                            DELAY=100;
+                        }
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        if(snake.dir==Snake.DIR_LEFT){
+                            DELAY=100;
+                        }
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        if(snake.dir==Snake.DIR_RIGTH){
+                            DELAY=100;
+                        }
                         break;
                     default:
                         break;
@@ -124,7 +167,7 @@ public class GameWindow extends JFrame implements ActionListener{
 
             chooseColor(g,snake.score);
             for (Cell cell : snake.cells) {
-                    g.drawRect(cell.getX(), cell.getY(), snake.CELL_SIZE, snake.CELL_SIZE);
+                    g.fillRect(cell.getX(), cell.getY(), snake.CELL_SIZE, snake.CELL_SIZE);
             }
             g.setColor(Color.RED);
             g.fillRect(snake.food.pos.getX(),snake.food.pos.getY(),snake.CELL_SIZE,snake.CELL_SIZE);
