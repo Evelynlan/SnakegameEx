@@ -73,7 +73,7 @@ public class SelectMode extends JFrame implements ActionListener {
         } else if (e.getSource() == btnSetting) {
 
         } else if (e.getSource() == btnAbout) {
-
+            new About();
         } else if (e.getSource() == btnExit) {
             System.exit(0);
         }
