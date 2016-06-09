@@ -16,16 +16,16 @@ public class Snake {
     public int dir=DIR_RIGTH;
     public static final int CELL_SIZE=20;
     public Food food;
+    public  int DELAY=100;
 
     public static final int DIR_LEFT=0;
     public static final int DIR_UP=1;
     public static final int DIR_RIGTH=2;
     public static final int DIR_DOWN=3;
-    public Snake(int width,int height) {
+    public Snake(int width,int height,Cell cell,int dir) {
         this.width=width;
         this.height=height;
-        init(new Cell(CELL_SIZE*3,CELL_SIZE*3),DIR_RIGTH);
-
+        init(cell,dir);
     }
     public void init(Cell cell,int dir){
         food=new Food(width,height);
@@ -104,7 +104,7 @@ public class Snake {
         int x=cells.get(cells.size()-1).getX();
         int y=cells.get(cells.size()-1).getY();
         if(x<0 || y<0 || x>width || y>height){
-            JOptionPane.showMessageDialog(null,"hit");
+            //JOptionPane.showMessageDialog(null,"hit");
             return true;
         }
         return false;
@@ -115,7 +115,7 @@ public class Snake {
         for(int i=0;i<cells.size()-1;i++){
             if(cells.get(i).getX()==x
                     &&cells.get(i).getY()==y){
-                JOptionPane.showMessageDialog(null,"bite");
+                //JOptionPane.showMessageDialog(null,"bite");
                 return true;
             }
         }

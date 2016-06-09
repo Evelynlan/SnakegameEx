@@ -1,7 +1,5 @@
 package com.example;
 
-import com.sun.scenario.effect.impl.sw.java.JSWBoxBlurPeer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -66,9 +64,10 @@ public class SelectMode extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnSingle) {
             dispose();
-            new GameWindow();
+            new GameWindowSingle();
         } else if (e.getSource() == btnDouble) {
-
+            dispose();
+            new GameWindowDouble();
         } else if (e.getSource() == btnDoubleRemote) {
 
         } else if (e.getSource() == btnSetting) {

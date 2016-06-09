@@ -4,7 +4,7 @@ package com.example;
  * Created by L T on 2016/6/8.
  */
 public class Food {
-    public  Cell pos=new Cell();
+    public  static Cell pos=new Cell();
     private int width;
     private int height;
     public final int CELL_SIZE=20;

@@ -12,18 +12,20 @@ import java.awt.event.KeyEvent;
 /**
  * Created by L T on 2016/6/8.
  */
-public class GameWindow extends JFrame implements ActionListener{
+public class GameWindowSingle extends JFrame implements ActionListener{
     private Player player = new Player();
     private JButton btnStart = new JButton("Start");
     private JLabel scoreLabel = new JLabel("SCORE");
     private JTextField score = new JTextField(10);
     private Snake snake;
     private boolean p1Run=false;
-    public static int DELAY=100;
 
-    public GameWindow() {
+
+    public GameWindowSingle() {
         initUI();
-        snake=new Snake(getWidth()-2*Snake.CELL_SIZE,getHeight()-4*Snake.CELL_SIZE);
+        snake=new Snake(getWidth()-2*Snake.CELL_SIZE,getHeight()-4*Snake.CELL_SIZE,
+                new Cell(Snake.CELL_SIZE*3,Snake.CELL_SIZE*3),Snake.DIR_RIGTH);
+
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -33,27 +35,31 @@ public class GameWindow extends JFrame implements ActionListener{
                     case KeyEvent.VK_UP:
                         snake.changeDir(Snake.DIR_UP);
                         if(snake.dir==Snake.DIR_UP){
-                            DELAY=30;
+                            snake.DELAY=30;
                         }
                         break;
                     case KeyEvent.VK_DOWN:
                         snake.changeDir(Snake.DIR_DOWN);
                         if(snake.dir==Snake.DIR_DOWN){
-                            DELAY=30;
+                            snake.DELAY=30;
                         }
                         break;
                     case KeyEvent.VK_LEFT:
                         snake.changeDir(Snake.DIR_LEFT);
                         if(snake.dir==Snake.DIR_LEFT){
-                            DELAY=30;
+                            snake.DELAY=30;
                         }
                         break;
                     case KeyEvent.VK_RIGHT:
                         snake.changeDir(Snake.DIR_RIGTH);
                         if(snake.dir==Snake.DIR_RIGTH){
-                            DELAY=30;
+                            snake.DELAY=30;
                         }
                         break;
+                    case KeyEvent.VK_ESCAPE:
+                        p1Run=false;
+                        dispose();
+                        new SelectMode();
                     default:
                         break;
                 }
@@ -64,22 +70,22 @@ public class GameWindow extends JFrame implements ActionListener{
                 switch (e.getKeyCode()){
                     case KeyEvent.VK_UP:
                         if(snake.dir==Snake.DIR_UP){
-                            DELAY=100;
+                            snake.DELAY=100;
                         }
                         break;
                     case KeyEvent.VK_DOWN:
                         if(snake.dir==Snake.DIR_DOWN){
-                            DELAY=100;
+                            snake.DELAY=100;
                         }
                         break;
                     case KeyEvent.VK_LEFT:
                         if(snake.dir==Snake.DIR_LEFT){
-                            DELAY=100;
+                            snake.DELAY=100;
                         }
                         break;
                     case KeyEvent.VK_RIGHT:
                         if(snake.dir==Snake.DIR_RIGTH){
-                            DELAY=100;
+                            snake.DELAY=100;
                         }
                         break;
                     default:
@@ -98,7 +104,7 @@ public class GameWindow extends JFrame implements ActionListener{
                     refresh();
                     repaint();
                     try {
-                        Thread.sleep(DELAY);
+                        Thread.sleep(snake.DELAY);
                     } catch (InterruptedException e1) {
                         e1.printStackTrace();
                     }
@@ -119,7 +125,7 @@ public class GameWindow extends JFrame implements ActionListener{
     }
     private void initUI() {
 
-        setTitle("SnakeGame v0.1");
+        setTitle("SnakeGameEx v0.2");
         setExtendedState(MAXIMIZED_BOTH);
         //背景色
         Container con = getContentPane();
