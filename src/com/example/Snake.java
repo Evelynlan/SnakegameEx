@@ -18,6 +18,7 @@ public class Snake {
     public Food food;
     public  int DELAY=100;
 
+
     public static final int DIR_LEFT=0;
     public static final int DIR_UP=1;
     public static final int DIR_RIGTH=2;

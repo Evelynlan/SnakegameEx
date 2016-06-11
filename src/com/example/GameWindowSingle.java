@@ -14,8 +14,9 @@ import java.awt.event.KeyEvent;
  */
 public class GameWindowSingle extends JFrame implements ActionListener{
     private Player player = new Player();
-    private JButton btnStart = new JButton("Start");
-    private JLabel scoreLabel = new JLabel("SCORE");
+    private JButton btnStart = new JButton("开始");
+    private JLabel scoreLabel = new JLabel("得分");
+    private JLabel desc=new JLabel("控制方向: ↑,↓,←,→ (按住可加速)  "+" 返回主菜单: Esc");
     private JTextField score = new JTextField(10);
     private Snake snake;
     private boolean p1Run=false;
@@ -95,6 +96,38 @@ public class GameWindowSingle extends JFrame implements ActionListener{
         });
 
     }
+    private void initUI() {
+
+        setTitle("SnakeGameEx v0.2");
+        setExtendedState(MAXIMIZED_BOTH);
+        //背景色
+        Container con = getContentPane();
+        con.setBackground(Color.DARK_GRAY);
+        //
+        JPanel top=new JPanel(new FlowLayout(FlowLayout.LEFT));
+        top.setBackground(Color.DARK_GRAY);
+        scoreLabel.setForeground(Color.white);
+        score.setEditable(false);
+        score.setText("0");
+        score.setBackground(Color.darkGray);
+        score.setForeground(Color.green);
+        top.add(scoreLabel);
+        top.add(score);
+        btnStart.setBackground(Color.darkGray);
+        btnStart.setForeground(Color.white);
+        btnStart.addActionListener(this);
+        top.add(btnStart);
+        desc.setForeground(Color.WHITE);
+        top.add(desc);
+        con.add(top,"North");
+        con.add(player,"Center");
+        //pack();
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        setVisible(true);
+        requestFocus();
+    }
+
     public void go(){
         new Thread(new Runnable() {
             @Override
@@ -122,32 +155,6 @@ public class GameWindowSingle extends JFrame implements ActionListener{
             btnStart.setText("重新开始");
             snake.init(new Cell(snake.CELL_SIZE*3,snake.CELL_SIZE*3),Snake.DIR_RIGTH);
         }
-    }
-    private void initUI() {
-
-        setTitle("SnakeGameEx v0.2");
-        setExtendedState(MAXIMIZED_BOTH);
-        //背景色
-        Container con = getContentPane();
-        con.setBackground(Color.DARK_GRAY);
-        //
-        JPanel top=new JPanel(new FlowLayout(FlowLayout.LEFT));
-        top.setBackground(Color.DARK_GRAY);
-        scoreLabel.setForeground(Color.white);
-        score.setEditable(false);
-        score.setText("0");
-        top.add(scoreLabel);
-        top.add(score);
-        btnStart.setBackground(Color.darkGray);
-        btnStart.setForeground(Color.white);
-        btnStart.addActionListener(this);
-        top.add(btnStart);
-        con.add(top,"North");
-        con.add(player,"Center");
-        //pack();
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        setVisible(true);
     }
 
     @Override

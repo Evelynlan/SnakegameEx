@@ -3,6 +3,7 @@ package com.example;
 import org.omg.CORBA.BooleanHolder;
 
 import javax.swing.*;
+import javax.swing.tree.TreeCellEditor;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,7 @@ public class GameWindowDouble extends JFrame implements ActionListener {
     JTextField p1Score = new JTextField(10);
     JTextField p2Score = new JTextField(10);
     JButton btnStart = new JButton("开始");
+    private JLabel desc = new JLabel("控制方向:  1P: W,A,S,D  2P: ↑,↓,←,→ (按住可加速)  " + " 返回主菜单: Esc");
 
     public GameWindowDouble() {
         initUI();
@@ -34,55 +36,59 @@ public class GameWindowDouble extends JFrame implements ActionListener {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                switch (e.getKeyCode()){
+                switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:
                         snake2.changeDir(Snake.DIR_UP);
-                        if(snake2.dir==Snake.DIR_UP){
-                            snake2.DELAY=30;
+                        if (snake2.dir == Snake.DIR_UP) {
+                            snake2.DELAY = 30;
                         }
                         break;
                     case KeyEvent.VK_DOWN:
                         snake2.changeDir(Snake.DIR_DOWN);
-                        if(snake2.dir==Snake.DIR_DOWN){
-                            snake2.DELAY=30;
+                        if (snake2.dir == Snake.DIR_DOWN) {
+                            snake2.DELAY = 30;
                         }
                         break;
                     case KeyEvent.VK_LEFT:
                         snake2.changeDir(Snake.DIR_LEFT);
-                        if(snake2.dir==Snake.DIR_LEFT){
-                            snake2.DELAY=30;
+                        if (snake2.dir == Snake.DIR_LEFT) {
+                            snake2.DELAY = 30;
                         }
                         break;
                     case KeyEvent.VK_RIGHT:
                         snake2.changeDir(Snake.DIR_RIGTH);
-                        if(snake2.dir==Snake.DIR_RIGTH){
-                            snake2.DELAY=30;
+                        if (snake2.dir == Snake.DIR_RIGTH) {
+                            snake2.DELAY = 30;
                         }
                         break;
                     case KeyEvent.VK_W:
                         snake1.changeDir(Snake.DIR_UP);
-                        if(snake1.dir==Snake.DIR_UP){
-                            snake1.DELAY=30;
+                        if (snake1.dir == Snake.DIR_UP) {
+                            snake1.DELAY = 30;
                         }
                         break;
                     case KeyEvent.VK_S:
                         snake1.changeDir(Snake.DIR_DOWN);
-                        if(snake1.dir==Snake.DIR_DOWN){
-                            snake1.DELAY=30;
+                        if (snake1.dir == Snake.DIR_DOWN) {
+                            snake1.DELAY = 30;
                         }
                         break;
                     case KeyEvent.VK_A:
                         snake1.changeDir(Snake.DIR_LEFT);
-                        if(snake1.dir==Snake.DIR_LEFT){
-                            snake1.DELAY=30;
+                        if (snake1.dir == Snake.DIR_LEFT) {
+                            snake1.DELAY = 30;
                         }
                         break;
                     case KeyEvent.VK_D:
                         snake1.changeDir(Snake.DIR_RIGTH);
-                        if(snake1.dir==Snake.DIR_RIGTH){
-                            snake1.DELAY=30;
+                        if (snake1.dir == Snake.DIR_RIGTH) {
+                            snake1.DELAY = 30;
                         }
                         break;
+                    case KeyEvent.VK_ESCAPE:
+                        p1Run = false;
+                        dispose();
+                        new SelectMode();
                     default:
                         break;
                 }
@@ -91,46 +97,46 @@ public class GameWindowDouble extends JFrame implements ActionListener {
             @Override
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
-                switch (e.getKeyCode()){
+                switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:
-                        if(snake2.dir==Snake.DIR_UP){
-                            snake2.DELAY=100;
+                        if (snake2.dir == Snake.DIR_UP) {
+                            snake2.DELAY = 100;
                         }
                         break;
                     case KeyEvent.VK_DOWN:
-                        if(snake2.dir==Snake.DIR_DOWN){
-                            snake2.DELAY=100;
+                        if (snake2.dir == Snake.DIR_DOWN) {
+                            snake2.DELAY = 100;
                         }
                         break;
                     case KeyEvent.VK_LEFT:
-                        if(snake2.dir==Snake.DIR_LEFT){
-                            snake2.DELAY=100;
+                        if (snake2.dir == Snake.DIR_LEFT) {
+                            snake2.DELAY = 100;
                         }
                         break;
                     case KeyEvent.VK_RIGHT:
-                        if(snake2.dir==Snake.DIR_RIGTH){
-                            snake2.DELAY=100;
+                        if (snake2.dir == Snake.DIR_RIGTH) {
+                            snake2.DELAY = 100;
                         }
                         break;
 
                     case KeyEvent.VK_W:
-                        if(snake1.dir==Snake.DIR_UP){
-                            snake1.DELAY=100;
+                        if (snake1.dir == Snake.DIR_UP) {
+                            snake1.DELAY = 100;
                         }
                         break;
                     case KeyEvent.VK_S:
-                        if(snake1.dir==Snake.DIR_DOWN){
-                            snake1.DELAY=100;
+                        if (snake1.dir == Snake.DIR_DOWN) {
+                            snake1.DELAY = 100;
                         }
                         break;
                     case KeyEvent.VK_A:
-                        if(snake1.dir==Snake.DIR_LEFT){
-                            snake1.DELAY=100;
+                        if (snake1.dir == Snake.DIR_LEFT) {
+                            snake1.DELAY = 100;
                         }
                         break;
                     case KeyEvent.VK_D:
-                        if(snake1.dir==Snake.DIR_RIGTH){
-                            snake1.DELAY=100;
+                        if (snake1.dir == Snake.DIR_RIGTH) {
+                            snake1.DELAY = 100;
                         }
                         break;
                     default:
@@ -148,17 +154,24 @@ public class GameWindowDouble extends JFrame implements ActionListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel top = new JPanel();
+        desc.setForeground(Color.white);
+
         top.setBackground(Color.DARK_GRAY);
         top.add(scoreLabel1);
         top.add(p1Score);
         top.add(btnStart);
         top.add(scoreLabel2);
         top.add(p2Score);
+        top.add(desc);
 
         p1Score.setEnabled(false);
         p2Score.setEnabled(false);
         p1Score.setText("0");
         p2Score.setText("0");
+        p1Score.setBackground(Color.darkGray);
+        p1Score.setForeground(Color.GREEN);
+        p2Score.setBackground(Color.darkGray);
+        p2Score.setForeground(Color.GREEN);
 
         scoreLabel1.setForeground(Color.white);
         scoreLabel2.setForeground(Color.white);
@@ -171,6 +184,9 @@ public class GameWindowDouble extends JFrame implements ActionListener {
         player.setBackground(Color.darkGray);
 
         setVisible(true);
+        requestFocus();
+
+
     }
 
     public void goSnake1() {
@@ -180,11 +196,10 @@ public class GameWindowDouble extends JFrame implements ActionListener {
                 while (p1Run) {
                     requestFocus();
                     refreshSnake1(p1Score);
-//                    if(GG()){
-//                        p1Run = false;
-//                        btnStart.setText("重新开始");
-//                        reStart();
-//                    }
+                    if (GG()) {
+                        p1Run=false;
+                        reStart();
+                    }
                     repaint();
                     try {
                         Thread.sleep(snake1.DELAY);
@@ -203,11 +218,6 @@ public class GameWindowDouble extends JFrame implements ActionListener {
                 while (p1Run) {
                     requestFocus();
                     refreshSnake2(p2Score);
-                    if(GG()){
-                        p1Run = false;
-                        btnStart.setText("重新开始");
-                        reStart();
-                    }
                     repaint();
                     try {
                         Thread.sleep(snake2.DELAY);
@@ -230,7 +240,9 @@ public class GameWindowDouble extends JFrame implements ActionListener {
     }
 
     public void reStart() {
+        btnStart.setText("重新开始");
         snake1.init(new Cell(snake1.CELL_SIZE * 3, snake1.CELL_SIZE * 3), Snake.DIR_RIGTH);
+        //TODO 硬编码!
         snake2.init(new Cell(Snake.CELL_SIZE * 65, Snake.CELL_SIZE * 33), Snake.DIR_LEFT);
     }
 
@@ -243,33 +255,24 @@ public class GameWindowDouble extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "游戏结束,P1胜");
             return true;
         }
-        if (p1BiteP2()) {
-            JOptionPane.showMessageDialog(null,"游戏结束,P2胜");
-        }
-        if (p2BiteP1()) {
-            JOptionPane.showMessageDialog(null,"游戏结束,P1胜");
-        }
-
-        return false;
-    }
-
-    private boolean p2BiteP1() {
-        Cell head = snake2.cells.get(snake2.cells.size() - 1);
-        for (int i = 0; i < snake1.cells.size() - 1; i++) {
-            if (head.getX() == snake1.cells.get(i).getX()
-                    && head.getY() == snake1.cells.get(i).getY()) {
-                return true;
-            }
-        }
-        if (head.getX() == snake1.cells.get(snake1.cells.size() - 1).getX()
-                && head.getY() == snake1.cells.get(snake1.cells.size() - 1).getY()
-                && snake2.score<=snake1.score){
+        if (Bite(snake1, snake2)) {
+            JOptionPane.showMessageDialog(null, "游戏结束,P2胜");
+            return true;
+        } else if (Bite(snake2, snake1)) {
+            JOptionPane.showMessageDialog(null, "游戏结束,P1胜");
             return true;
         }
         return false;
     }
 
-    private boolean p1BiteP2() {
+    /**
+     * 判断snake1是否撞到了snake2
+     *
+     * @param snake1
+     * @param snake2
+     * @return snake1 bitted snake2
+     */
+    private boolean Bite(Snake snake1, Snake snake2) {
         Cell head = snake1.cells.get(snake1.cells.size() - 1);
         for (int i = 0; i < snake2.cells.size() - 1; i++) {
             if (head.getX() == snake2.cells.get(i).getX()
@@ -279,10 +282,10 @@ public class GameWindowDouble extends JFrame implements ActionListener {
         }
         if (head.getX() == snake2.cells.get(snake2.cells.size() - 1).getX()
                 && head.getY() == snake2.cells.get(snake2.cells.size() - 1).getY()
-                && snake1.score<=snake2.score){
+                && snake1.score <= snake2.score) {
             return true;
         }
-            return false;
+        return false;
     }
 
     @Override
@@ -301,21 +304,30 @@ public class GameWindowDouble extends JFrame implements ActionListener {
     }
 
     class Player extends JPanel {
+        private final boolean FILL = true;
+        private final boolean DRAW = false;
+
         @Override
         protected void paintComponent(Graphics g) {
             g.setColor(Color.GRAY);
             g.fillRect(0, 0, getWidth(), getHeight());
 
-            drawSnake(g, snake1);
-            drawSnake(g, snake2);
+            drawSnake(g, snake1, FILL);
+            drawSnake(g, snake2, DRAW);
             drawFood(g, snake1);
 
         }
 
-        public void drawSnake(Graphics g, Snake snake) {
+        public void drawSnake(Graphics g, Snake snake, boolean isFill) {
             chooseColor(g, snake.score);
-            for (Cell cell : snake.cells) {
-                g.fillRect(cell.getX(), cell.getY(), snake.CELL_SIZE, snake.CELL_SIZE);
+            if (isFill) {
+                for (Cell cell : snake.cells) {
+                    g.fillRect(cell.getX(), cell.getY(), snake.CELL_SIZE, snake.CELL_SIZE);
+                }
+            } else {
+                for (Cell cell : snake.cells) {
+                    g.drawRect(cell.getX(), cell.getY(), snake.CELL_SIZE, snake.CELL_SIZE);
+                }
             }
 
         }

@@ -69,9 +69,9 @@ public class SelectMode extends JFrame implements ActionListener {
             dispose();
             new GameWindowDouble();
         } else if (e.getSource() == btnDoubleRemote) {
-
+            //TODO
         } else if (e.getSource() == btnSetting) {
-
+            //TODO
         } else if (e.getSource() == btnAbout) {
             new About();
         } else if (e.getSource() == btnExit) {

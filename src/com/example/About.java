@@ -24,10 +24,17 @@ public class About extends JDialog {
         info.setBackground(Color.darkGray);
         info.setForeground(Color.white);
         info.setSelectedTextColor(Color.RED);
-        info.setText("\nAuthor: Tcong Li\nLicense: GPL v2.0\n\nA simple SnakeGame.\nWelcome to fork & pull request.\nhttps://github.com/TcongLi/SnakegameEx\n\nThis program is free software; you can redistribute it and/or modify it \nunder the terms of the GNU General Public License as published \nby the Free Software Foundation; either version 2 of the License,\n or (at your option) any later version.\n" );
+        info.setText("\nAuthor: Tcong Li\nLicense: GPL v2.0\n\n" +
+                "A simple SnakeGame.\nWelcome to fork & pull request.\n" +
+                "https://github.com/TcongLi/SnakegameEx\n\n" +
+                "This program is free software; you can redistribute it and/or modify it \n" +
+                "under the terms of the GNU General Public License as published \n" +
+                "by the Free Software Foundation; either version 2 of the License,\n " +
+                "or (at your option) any later version.\n" );
         info.setEditable(false);
         js = new JScrollPane(info);
         add(js);
+
         setTitle("关于");
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
